@@ -13,6 +13,9 @@ workspace "x"
         if os.istarget( "windows" ) then
 		    defines { "GTEST_HAS_TR1_TUPLE=0" }
     	end
+	if os.istarget( "linux" ) then
+		links { "X11", "Xi", "Xxf86vm", "Xrandr", "pthread" }
+	end
 
         sysincludedirs { "./contrib/src" }
         sysincludedirs { "./contrib/src/gtest-1.6.0/" }
