@@ -23,6 +23,18 @@ jobs:
       with:
         name: Binary_${{ github.run_number }}
         path: ./dist/bin/Release/*
+
+
+  run-unit-test:
+    runs-on: ubuntu-latest
+    needs: build-linux
+
+    steps:
+    - name: Download Artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: Binary_${{ github.run_number }}
+        path: ./
     - name: unit test
       run: ./dist/bin/Release/x64 --gtest_output=xml:./result.xml
     - name: Upload Unit Test Results
@@ -30,7 +42,19 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: UnitTestResults_${{ github.run_number }}
-        path: result.xml
+        path: result.xml        
+        
+  publish-results:
+    runs-on: ubuntu-latest
+    needs: run-unit-test
+    if: success() || failure()
+    
+    steps:
+    - name: Download Artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: UnitTestResults_${{ github.run_number }}
+        path: ./
     - name: Publish Unit Test Results
       uses: EnricoMi/publish-unit-test-result-action@v1.6
       if: always()
@@ -38,16 +62,3 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         files: result.xml
 
-  publish-results:
-    runs-on: ubuntu-latest
-    needs: build-linux
-    if: success() || failure()
-    
-    steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: Binary_${{ github.run_number }}
-          path: ./
-      - name: ls
-        run: ls
