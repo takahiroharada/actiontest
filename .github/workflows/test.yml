@@ -36,7 +36,7 @@ jobs:
         name: Binary_${{ github.run_number }}
         path: ./
     - name: unit test
-      run: ./dist/bin/Release/x64 --gtest_output=xml:./result.xml
+      run: ./x64 --gtest_output=xml:./result.xml
     - name: Upload Unit Test Results
       if: always()
       uses: actions/upload-artifact@v2
