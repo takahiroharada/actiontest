@@ -59,7 +59,7 @@ jobs:
     - name: chmod
       run: chmod +x ./x64
     - name: unit test
-      run: ./x64 --gtest_filter=*test1 --gtest_output=xml:./result.xml
+      run: ./x64 --gtest_filter=*test1 --gtest_output=xml:./result1.xml
     - name: Upload Unit Test Results
       if: always()
       uses: actions/upload-artifact@v2
