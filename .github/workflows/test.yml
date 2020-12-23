@@ -20,6 +20,12 @@ jobs:
       run: make -j config=release_x64
     - name: unit test
       run: ./dist/bin/Release/x64 --gtest_output=xml:./result.xml
+    - name: Upload Unit Test Results
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: Unit Test Results
+        path: result.xml
     - name: Publish Unit Test Results
       uses: EnricoMi/publish-unit-test-result-action@v1.6
       if: always()
