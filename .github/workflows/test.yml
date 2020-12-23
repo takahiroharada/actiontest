@@ -28,8 +28,8 @@ jobs:
   unit-test:
     strategy:
       matrix:
-        asic: ["vega", "navi10"]
-    runs-on: [self-hosted, linux]
+        asics: ["vega", "navi10"]
+    runs-on: [self-hosted, linux, matrix.asics]
     needs: build-linux
     steps:
     - name: Download Artifacts
