@@ -46,7 +46,7 @@ jobs:
         path: result.xml        
   
   unit-test1:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux]
     needs: build-linux
     strategy:
       matrix:
