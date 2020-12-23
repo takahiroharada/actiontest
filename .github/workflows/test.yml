@@ -28,8 +28,10 @@ jobs:
   unit-test:
     strategy:
       matrix:
-        asics: ["vega", "navi10"]
-    runs-on: [self-hosted, linux, ${{matrix.asics}}]
+#        asics: ["vega", "navi10"]
+#    runs-on: [self-hosted, linux]
+        asics: ["self-hosted, linux, vega", "self-hosted, linux, navi10"]
+    runs-on: ${{ matrix.asics }}
     needs: build-linux
     steps:
     - name: Download Artifacts
