@@ -83,7 +83,7 @@ jobs:
     - name: Download Artifacts
       uses: actions/download-artifact@v2
       with:
-        name: UnitTestResults_${{ github.run_number }}
+        name: UnitTestResults_*
         path: ./
     - name: Publish Unit Test Results
       uses: EnricoMi/publish-unit-test-result-action@v1.6
