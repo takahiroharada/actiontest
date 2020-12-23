@@ -1,0 +1,20 @@
+name: Build and Test
+
+on:
+  push:
+    branches: 
+      - *
+
+jobs: 
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: ls
+      run: ls
+    - name: configure
+      run: sudo apt-get install python libglu1-mesa-dev libxrandr-dev libxi-dev
+    - name: premake
+      run: ./tools/premake5/linux64/premake5 gmake
+    - name: make
+      run: make -j config=release_x64
