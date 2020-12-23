@@ -71,6 +71,7 @@ jobs:
       uses: EnricoMi/publish-unit-test-result-action@v1.6
       if: always()
       with:
+        check_name: Unit Test Results ${{ matrix.commands }}
         github_token: ${{ secrets.GITHUB_TOKEN }}
         files: ./*.xml
   
@@ -83,7 +84,7 @@ jobs:
     - name: Download Artifacts
       uses: actions/download-artifact@v2
       with:
-        name: UnitTestResults_*
+        name: UnitTestResults_${{ github.run_number }}
         path: ./
     - name: Publish Unit Test Results
       uses: EnricoMi/publish-unit-test-result-action@v1.6
