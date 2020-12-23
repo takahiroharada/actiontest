@@ -35,6 +35,8 @@ jobs:
       with:
         name: Binary_${{ github.run_number }}
         path: ./
+    - name: chmod
+      run: chmod +x ./x64
     - name: unit test
       run: ./x64 --gtest_output=xml:./result.xml
     - name: Upload Unit Test Results
