@@ -18,6 +18,11 @@ jobs:
       run: ./tools/premake5/linux64/premake5 gmake
     - name: make
       run: make -j config=release_x64
+    - name: Upload Binary
+      uses: actions/upload-artifact@v2
+      with:
+        name: Binary_${{ github.run_number }}
+        path: ./dist/bin/Release/*
     - name: unit test
       run: ./dist/bin/Release/x64 --gtest_output=xml:./result.xml
     - name: Upload Unit Test Results
