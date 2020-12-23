@@ -28,7 +28,6 @@ jobs:
   run-unit-test:
     runs-on: ubuntu-latest
     needs: build-linux
-
     steps:
     - name: Download Artifacts
       uses: actions/download-artifact@v2
@@ -49,7 +48,9 @@ jobs:
   run-unit-test1:
     runs-on: ubuntu-latest
     needs: build-linux
-
+    strategy:
+      matrix:
+        commands: ["./x64 --gtest_filter=*test0 --gtest_output=xml:./result.xml", "./x64 --gtest_filter=*test1 --gtest_output=xml:./result.xml"]
     steps:
     - name: Download Artifacts
       uses: actions/download-artifact@v2
@@ -59,13 +60,13 @@ jobs:
     - name: chmod
       run: chmod +x ./x64
     - name: unit test
-      run: ./x64 --gtest_filter=*test1 --gtest_output=xml:./result1.xml
+      run: ${{ matrix.commands }}
     - name: Upload Unit Test Results
       if: always()
       uses: actions/upload-artifact@v2
       with:
         name: UnitTestResults1_${{ github.run_number }}
-        path: result1.xml        
+        path: result.xml        
   
   publish-results:
     runs-on: ubuntu-latest
