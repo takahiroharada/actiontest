@@ -20,3 +20,8 @@ jobs:
       run: make -j config=release_x64
     - name: unit test
       run: ./dist/bin/Release/x64 --gtest_output=xml:./result.xml
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1.6
+      if: always()
+      with:
+        files: result.xml
