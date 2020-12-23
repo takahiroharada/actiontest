@@ -29,7 +29,7 @@ jobs:
     strategy:
       matrix:
         asics: ["vega", "navi10"]
-    runs-on: [self-hosted, linux, matrix.asics]
+    runs-on: [self-hosted, linux]
     needs: build-linux
     steps:
     - name: Download Artifacts
