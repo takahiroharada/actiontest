@@ -50,7 +50,7 @@ jobs:
     needs: build-linux
     strategy:
       matrix:
-        commands: ["./x64 --gtest_filter=*test0 --gtest_output=xml:./result.xml", "./x64 --gtest_filter=*test1 --gtest_output=xml:./result.xml"]
+        commands: ["test0", "test1"]
     steps:
     - name: Download Artifacts
       uses: actions/download-artifact@v2
@@ -60,7 +60,7 @@ jobs:
     - name: chmod
       run: chmod +x ./x64
     - name: unit test
-      run: ${{ matrix.commands }}
+      run: ./x64 --gtest_filter=*${{ matrix.commands }} --gtest_output=xml:./result.xml 
     - name: Upload Unit Test Results
       if: always()
       uses: actions/upload-artifact@v2
