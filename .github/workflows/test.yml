@@ -14,9 +14,9 @@ jobs:
       run: ls
     - name: configure
       run: sudo apt-get install python libglu1-mesa-dev libxrandr-dev libxi-dev
-    - name: chmod
-      run: chmod +x ./tools/premake5/linux64/premake5
     - name: premake      
       run: ./tools/premake5/linux64/premake5 gmake
     - name: make
       run: make -j config=release_x64
+    - name: unit test
+      run: ./dist/bin/Release/x64 --gtest_output=xml:./result.xml
