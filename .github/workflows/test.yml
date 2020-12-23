@@ -24,7 +24,7 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: Unit Test Results
+        name: UnitTestResults_${{ github.run_number }}
         path: result.xml
     - name: Publish Unit Test Results
       uses: EnricoMi/publish-unit-test-result-action@v1.6
