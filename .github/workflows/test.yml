@@ -25,7 +25,7 @@ jobs:
         path: ./dist/bin/Release/*
 
 
-  run-unit-test:
+  unit-test:
     runs-on: ubuntu-latest
     needs: build-linux
     steps:
@@ -45,7 +45,7 @@ jobs:
         name: UnitTestResults_${{ github.run_number }}
         path: result.xml        
   
-  run-unit-test1:
+  unit-test1:
     runs-on: ubuntu-latest
     needs: build-linux
     strategy:
@@ -65,12 +65,12 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: UnitTestResults1_${{ github.run_number }}
+        name: UnitTestResults_${{ matrix.commands }}_${{ github.run_number }}
         path: result.xml        
   
   publish-results:
     runs-on: ubuntu-latest
-    needs: [run-unit-test, run-unit-test1]
+    needs: [unit-test, unit-test1]
     if: success() || failure()
     
     steps:
